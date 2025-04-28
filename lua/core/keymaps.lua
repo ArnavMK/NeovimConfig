@@ -2,8 +2,13 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+-- Oil start up
+vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+
 -- Disable the spacebar key's default behavior in Normal and Visual modes
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+
+vim.keymap.set('n', '<leader>mp', '<cmd>MarkdownPreviewToggle<CR>', { desc = 'Markdown Preview' })
 
 -- For conciseness
 local opts = { noremap = true, silent = true }

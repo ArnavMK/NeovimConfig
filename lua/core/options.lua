@@ -1,3 +1,17 @@
+
+-- Line colours
+vim.api.nvim_set_hl(0, 'LineNr', { fg = '#5C5C5C', bold = false })        -- Absolute line numbers (dark gray)
+vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = '#7E9CD8', bold = true })   -- Current line (soft blue)
+vim.api.nvim_set_hl(0, 'LineNrAbove', { fg = '#4C4C4C' })                 -- Relative above (darker gray)
+vim.api.nvim_set_hl(0, 'LineNrBelow', { fg = '#4C4C4C' })                 -- Relative below (darker gray)
+
+-- Enable blinking cursor in all modes
+vim.opt.guicursor = {
+    'n-v-c-sm:block-blinkwait250-blinkon400-blinkoff250',
+    'i-ci-ve:ver25-blinkwait250-blinkon400-blinkoff250',
+    'r-cr-o:hor20-blinkwait250-blinkon400-blinkoff250'
+}
+-- Ensure these colors persist when changing colorschemes
 vim.wo.number = true -- Make line numbers default (default: false)
 vim.o.relativenumber = true -- Set relative numbered lines (default: false)
 vim.o.clipboard = 'unnamedplus' -- Sync clipboard between OS and Neovim. (default: '')

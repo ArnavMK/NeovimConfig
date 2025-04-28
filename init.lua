@@ -15,7 +15,6 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Set up plugins
 require('lazy').setup {
-  require 'plugins.neotree',
   require 'plugins.colortheme',
   require 'plugins.bufferline',
   require 'plugins.lualine',
@@ -27,6 +26,7 @@ require('lazy').setup {
   require 'plugins.alpha',
   require 'plugins.misc',
   require 'plugins.comment',
+  require 'plugins.preview-md'
 }
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
