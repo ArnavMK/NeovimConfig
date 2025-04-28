@@ -12,9 +12,9 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
   end
 end
 vim.opt.rtp:prepend(lazypath)
-
 -- Set up plugins
 require('lazy').setup {
+  require 'plugins.terminal',
   require 'plugins.colortheme',
   require 'plugins.bufferline',
   require 'plugins.lualine',
@@ -22,7 +22,6 @@ require('lazy').setup {
   require 'plugins.telescope',
   require 'plugins.lsp',
   require 'plugins.autocompletion',
-  require 'plugins.gitsigns',
   require 'plugins.alpha',
   require 'plugins.misc',
   require 'plugins.comment',

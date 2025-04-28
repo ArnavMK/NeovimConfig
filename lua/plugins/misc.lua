@@ -1,6 +1,19 @@
 -- Standalone plugins with less than 10 lines of config go here
 return {
   {
+    'Wansmer/treesj',
+    keys = {
+      '<leader>m',
+      '<leader>j',
+      '<leader>s',
+    },
+    options = {use_defualt_keymaps = false},
+    config = function()
+      require('treesj').setup({--[[ your config ]]})
+    end,
+  },
+  -- Oil.nvim file manager 
+  {
     'stevearc/oil.nvim',
     opts = {},
     -- Optional dependencies
