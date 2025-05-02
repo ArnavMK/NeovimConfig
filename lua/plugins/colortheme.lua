@@ -27,7 +27,7 @@
 --   end,
 -- }
 
-
+--
 -- return {
 --   'navarasu/onedark.nvim',
 --   priority = 1000, -- Make sure to load this before all other plugins
@@ -164,7 +164,7 @@
 --     require('onedark').load()
 --   end
 -- }
---
+
 return {
   "catppuccin/nvim",
   name = "catppuccin",
@@ -173,7 +173,7 @@ return {
     require("catppuccin").setup({
       flavour = "mocha", -- darkest variant
       transparent_background = true,
-      show_end_of_buffer = false, -- don't show tildes at end of buffer
+      show_end_of_buffer = true,
       term_colors = true,
       dim_inactive = {
         enabled = false,

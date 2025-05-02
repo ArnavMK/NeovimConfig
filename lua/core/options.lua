@@ -1,3 +1,6 @@
+-- Ensure it works in both GUI and terminal
+vim.api.nvim_set_hl(0, 'VisualNOS', { link = 'Visual' })
+vim.api.nvim_set_hl(0, 'VisualNC', { link = 'Visual' }) -- For visual mode in non-current window
 
 -- Line colours
 vim.api.nvim_set_hl(0, 'LineNr', { fg = '#5C5C5C', bold = false })        -- Absolute line numbers (dark gray)
@@ -11,9 +14,10 @@ vim.opt.guicursor = {
     'i-ci-ve:ver25-blinkwait250-blinkon400-blinkoff250',
     'r-cr-o:hor20-blinkwait250-blinkon400-blinkoff250'
 }
--- Ensure these colors persist when changing colorschemes
-vim.wo.number = true -- Make line numbers default (default: false)
-vim.o.relativenumber = true -- Set relative numbered lines (default: false)
+
+vim.wo.number = true
+vim.opt.signcolumn = "yes:2"  -- Adds 2-char padding between numbers & text -- Make line numbers default (default: false)
+vim.opt.relativenumber = true -- Set relative numbered lines (default: false)
 vim.o.clipboard = 'unnamedplus' -- Sync clipboard between OS and Neovim. (default: '')
 vim.o.wrap = false -- Display lines as one long line (default: true)
 vim.o.linebreak = true -- Companion to wrap, don't split words (default: false)
@@ -27,10 +31,9 @@ vim.o.softtabstop = 4 -- Number of spaces that a tab counts for while performing
 vim.o.expandtab = true -- Convert tabs to spaces (default: false)
 vim.o.scrolloff = 4 -- Minimal number of screen lines to keep above and below the cursor (default: 0)
 vim.o.sidescrolloff = 8 -- Minimal number of screen columns either side of cursor if wrap is `false` (default: 0)
-vim.o.cursorline = false -- Highlight the current line (default: false)
 vim.o.splitbelow = true -- Force all horizontal splits to go below current window (default: false)
 vim.o.splitright = true -- Force all vertical splits to go to the right of current window (default: false)
-vim.o.hlsearch = false -- Set highlight on search (default: true)
+vim.o.hlsearch = false  --Set highlight on search (default: true)
 vim.o.showmode = false -- We don't need to see things like -- INSERT -- anymore (default: true)
 vim.opt.termguicolors = true -- Set termguicolors to enable highlight groups (default: false)
 vim.o.whichwrap = 'bs<>[]hl' -- Which "horizontal" keys are allowed to travel to prev/next line (default: 'b,s')

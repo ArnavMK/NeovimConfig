@@ -2,154 +2,76 @@ return {
   'nvim-lualine/lualine.nvim',
   config = function()
     local colors = {
-      bg       = '#202328',
-      fg       = '#bbc2cf',
-      yellow   = '#ECBE7B',
-      cyan     = '#008080',
-      darkblue = '#081633',
-      green    = '#98be65',
-      orange   = '#FF8800',
-      violet   = '#a9a1e1',
-      magenta  = '#c678dd',
-      blue     = '#51afef',
-      red      = '#ec5f67',
+      blue   = '#80a0ff',
+      cyan   = '#79dac8',
+      black  = '#080808',
+      white  = '#c6c6c6',
+      red    = '#ff5189',
+      violet = '#d183e8',
+      grey   = '#303030',
     }
 
-    local conditions = {
-      buffer_not_empty = function()
-        return vim.fn.empty(vim.fn.expand('%:t')) ~= 1
-      end,
-      hide_in_width = function()
-        return vim.fn.winwidth(0) > 80
-      end,
-      check_git_workspace = function()
-        local filepath = vim.fn.expand('%:p:h')
-        local gitdir = vim.fn.finddir('.git', filepath .. ';')
-        return gitdir and #gitdir > 0 and #gitdir < #filepath
-      end,
+    local bubbles_theme = {
+      normal = {
+        a = { fg = colors.black, bg = colors.blue },
+        b = { fg = colors.white, bg = colors.grey },
+        c = { fg = colors.white },
+        x = { fg = colors.white, bg = colors.grey }, -- For diagnostics section
+      },
+      insert = { a = { fg = colors.black, bg = colors.cyan } },
+      visual = { a = { fg = colors.black, bg = colors.red } },
+      replace = { a = { fg = colors.black, bg = colors.violet} },
+      inactive = {
+        a = { fg = colors.white, bg = colors.black },
+        b = { fg = colors.white, bg = colors.black },
+        c = { fg = colors.white },
+        x = { fg = colors.white, bg = colors.black },
+      },
     }
 
     require('lualine').setup {
       options = {
+        theme = bubbles_theme,
         component_separators = '',
-        section_separators = '',
-        theme = {
-          normal = { c = { fg = colors.fg, bg = colors.bg } },
-          inactive = { c = { fg = colors.fg, bg = colors.bg } },
-        },
+        section_separators = { left = '', right = '' },
+        globalstatus = true,
       },
       sections = {
-        lualine_a = {},
-        lualine_b = {},
-        lualine_c = {
-          {
-            function() return '' end,
-            color = function()
-              local mode_color = {
-                n = colors.red, i = colors.green, v = colors.blue,
-                [''] = colors.blue, V = colors.blue, c = colors.magenta,
-                no = colors.red, s = colors.orange, S = colors.orange,
-                [''] = colors.orange, ic = colors.yellow, R = colors.violet,
-                Rv = colors.violet, cv = colors.red, ce = colors.red,
-                r = colors.cyan, rm = colors.cyan, ['r?'] = colors.cyan,
-                ['!'] = colors.red, t = colors.red,
-              }
-              return { fg = mode_color[vim.fn.mode()] }
-            end,
-            padding = { left = 0, right = 1 },
-          },
-          {
-            function() return ' ' end,
-            color = function()
-              local mode_color = {
-                n = colors.red, i = colors.green, v = colors.blue,
-                [''] = colors.blue, V = colors.blue, c = colors.magenta,
-                no = colors.red, s = colors.orange, S = colors.orange,
-                [''] = colors.orange, ic = colors.yellow, R = colors.violet,
-                Rv = colors.violet, cv = colors.red, ce = colors.red,
-                r = colors.cyan, rm = colors.cyan, ['r?'] = colors.cyan,
-                ['!'] = colors.red, t = colors.red,
-              }
-              return { fg = mode_color[vim.fn.mode()] }
-            end,
-            padding = { right = 1 },
-          },
-          { 'filesize', cond = conditions.buffer_not_empty },
-          {
-            'filename',
-            cond = conditions.buffer_not_empty,
-            color = { fg = colors.magenta, gui = 'bold' },
-          },
-          'location',
-          { 'progress', color = { fg = colors.fg, gui = 'bold' } },
-          {
-            'diagnostics',
-            sources = { 'nvim_diagnostic' },
-            symbols = { error = ' ', warn = ' ', info = ' ' },
-            diagnostics_color = {
-              error = { fg = colors.red },
-              warn = { fg = colors.yellow },
-              info = { fg = colors.cyan },
-            },
-          },
-          { function() return '%=' end },
-        },
+        lualine_a = { { 'mode', separator = { left = '' }, right_padding = 2 } },
+        lualine_b = { 'filename', 'branch' },
+        lualine_c = { '%=', --[[ your center components ]] },
         lualine_x = {
-          {
-            'o:encoding',
-            fmt = string.upper,
-            cond = conditions.hide_in_width,
-            color = { fg = colors.green, gui = 'bold' },
-          },
-          {
-            'fileformat',
-            fmt = string.upper,
-            icons_enabled = false,
-            color = { fg = colors.green, gui = 'bold' },
-          },
-          {
-            'branch',
-            icon = '',
-            color = { fg = colors.violet, gui = 'bold' },
-          },
-          {
-            'diff',
-            symbols = { added = ' ', modified = '󰝤 ', removed = ' ' },
-            diff_color = {
-              added = { fg = colors.green },
-              modified = { fg = colors.orange },
-              removed = { fg = colors.red },
-            },
-            cond = conditions.hide_in_width,
-          },
-          {
-            function() return '' end,
-            color = function()
-              local mode_color = {
-                n = colors.red, i = colors.green, v = colors.blue,
-                [''] = colors.blue, V = colors.blue, c = colors.magenta,
-                no = colors.red, s = colors.orange, S = colors.orange,
-                [''] = colors.orange, ic = colors.yellow, R = colors.violet,
-                Rv = colors.violet, cv = colors.red, ce = colors.red,
-                r = colors.cyan, rm = colors.cyan, ['r?'] = colors.cyan,
-                ['!'] = colors.red, t = colors.red,
-              }
-              return { fg = mode_color[vim.fn.mode()] }
-            end,
-            padding = { left = 1 },
-          },
+          { -- This is the diagnostics section
+            'diagnostics',
+            sources = {'nvim_diagnostic'},
+            symbols = {error = ' ', warn = ' ', info = ' '},
+            colored = true,
+            separator = { left = '', right = '' }, -- Both separators now
+            left_padding = 2,
+            right_padding = 2,
+            color = { bg = colors.grey },
+          }
         },
-        lualine_y = {},
-        lualine_z = {},
+        lualine_y = { 'filetype', 'progress' },
+        lualine_z = {
+          { 'location', separator = { right = '' }, left_padding = 2 },
+        },
       },
       inactive_sections = {
-        lualine_a = {},
+        lualine_a = { 'filename' },
         lualine_b = {},
-        lualine_c = { 'filename' },
-        lualine_x = { 'location' },
+        lualine_c = {},
+        lualine_x = {
+          {
+            'diagnostics',
+            separator = { left = '', right = '' },
+            left_padding = 2,
+            color = { bg = colors.black },
+          }
+        },
         lualine_y = {},
-        lualine_z = {},
+        lualine_z = { 'location' },
       },
     }
-  end,
+  end
 }

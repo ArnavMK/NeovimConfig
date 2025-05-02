@@ -10,17 +10,13 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 vim.keymap.set('n', '<leader>mp', '<cmd>MarkdownPreviewToggle<CR>', { desc = 'Markdown Preview' })
 
--- For conciseness
 local opts = { noremap = true, silent = true }
-vim.keymap.set('i', 'kj', '<Esc>', opts) 
+
+-- this remap makes me feel like a god
+vim.keymap.set('i', 'kj', '<Esc>', opts)
+
 -- save file
 vim.keymap.set('n', '<C-s>', '<cmd> w <CR>', opts)
-
--- save file without auto-formatting
-vim.keymap.set('n', '<leader>sn', '<cmd>noautocmd w <CR>', opts)
-
--- quit file
-vim.keymap.set('n', '<C-q>', '<cmd> q <CR>', opts)
 
 -- delete single character without copying into register
 vim.keymap.set('n', 'x', '"_x', opts)
@@ -42,14 +38,15 @@ vim.keymap.set('n', '<Right>', ':vertical resize +2<CR>', opts)
 -- Buffers
 vim.keymap.set('n', '<Tab>', ':bnext<CR>', opts)
 vim.keymap.set('n', '<S-Tab>', ':bprevious<CR>', opts)
-vim.keymap.set('n', '<leader>x', ':bdelete!<CR>', opts) -- close buffer
-vim.keymap.set('n', '<leader>b', '<cmd> enew <CR>', opts) -- new buffer
+vim.keymap.set('n', '<C-w>', ':bw<CR>', opts)
+vim.keymap.set('i', '<C-w>', ':bw<CR>', opts)
+vim.keymap.set('n', '<C-a>', 'ggVG', opts)
+vim.keymap.set('i', '<C-a>', 'ggVG', opts)
 
 -- Window management
 vim.keymap.set('n', '<leader>v', '<C-w>v', opts) -- split window vertically
 vim.keymap.set('n', '<leader>h', '<C-w>s', opts) -- split window horizontally
 vim.keymap.set('n', '<leader>se', '<C-w>=', opts) -- make split windows equal width & height
-vim.keymap.set('n', '<leader>xs', ':close<CR>', opts) -- close current split window
 
 -- Navigate between splits
 vim.keymap.set('n', '<C-k>', ':wincmd k<CR>', opts)
